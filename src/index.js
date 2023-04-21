@@ -33,9 +33,10 @@ module.exports=function yamlInject(args){
     if(p){ //ignore empty props
       if (!propertyPointer.hasOwnProperty(p)) {
         propertyPointer[p] = {};//If the path doesn't exist we create as we go
-      }else if(typeof propertyPointer[p]!='object'||!propertyPointer[p]){
-        exit(`The structure of ${args.main} doesn't allow for injecting at '${args.property}'. Failed while trying to access '${p}'`);
-      }
+        }else if(typeof propertyPointer[p]!='object'||!propertyPointer[p]){
+          throw new Error(`The structure of ${args.main} doesn't allow for injecting at '${args.property}'. `+
+            `Failed while trying to access '${p}'`);
+        }
       propertyPointer = propertyPointer[p];
     }
   };
