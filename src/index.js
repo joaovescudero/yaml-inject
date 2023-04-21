@@ -25,7 +25,7 @@ module.exports=function yamlInject(args){
       throw new Error(`Missing required argument '${aa}'`);
   }
   // Read the contents of the main YAML file and parse it into an object
-  const mainObj = yaml.safeLoad(fs.readFileSync(args.main, 'utf8'));
+  const mainObj = yaml.load(fs.readFileSync(args.main, 'utf8'));
 
   // Find the property on the above object which we want to modify
   var propertyPointer = mainObj;
@@ -43,13 +43,13 @@ module.exports=function yamlInject(args){
   // Loop through all YAML files that match the glob pattern...
   for(let filepath of glob.sync(args.partials)){
     //...read and parse them into objects...
-    const partialObj = yaml.safeLoad(fs.readFileSync(filepath, 'utf8'));
+    const partialObj = yaml.load(fs.readFileSync(filepath, 'utf8'));
     
     //...then assign that object at the propertyPointer
     Object.assign(propertyPointer, partialObj);
   };
 
   // Convert the merged object to YAML and write it to the output file
-  const outputYaml = yaml.safeDump(mainObj);
+  const outputYaml = yaml.dump(mainObj);
   fs.writeFileSync(args.output, outputYaml, 'utf8');
 }
