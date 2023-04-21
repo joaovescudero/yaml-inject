@@ -48,11 +48,11 @@ yamlInject(mainFilePath,partialsGlobString,outputFilePath,propertyPath)
 or you can call the binary directly from the command line:
 
 ```bash
-node yaml-merge.js --main <mainFilePath> --partials <partialsGlobString> --output <outputFilePath> --property <propertyPath>
+npx yaml-merge --main <mainFilePath> --partials <partialsGlobString> --output <outputFilePath> --property <propertyPath>
 ```
-where:
-*<mainFilePath>* is the path to the main YAML file
-*<partialsGlobString>* is the glob string to match the partial YAML files (e.g. 'partials/*.yml')
-*<outputFilePath>* is the path where the merged YAML file will be saved
-*<propertyPath>* is the property path in the main file where the partial YAML contents should be inserted (e.g. 'players')
+where:  
+*mainFilePath* is the path to the main YAML file
+*partialsGlobString* is the glob string to match the partial YAML files (e.g. 'partials/*.yml')
+*outputFilePath* is the path where the merged YAML file will be saved
+*propertyPath* is the property path in the main file where the partial YAML contents should be inserted (e.g. 'players')
 

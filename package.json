@@ -2,8 +2,8 @@
   "name": "yaml-inject",
   "version": "1.0.0",
   "description": "Inject partial .yml files into a property in a main.yml file",
-  "main": "src/index.js",
-  "bin": ".bin/yaml-inject",
+  "main": "./src/index.js",
+  "bin": "./.bin/yaml-inject",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
