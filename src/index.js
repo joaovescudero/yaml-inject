@@ -8,11 +8,11 @@ const yaml = require('js-yaml');
  * 
  * @param {object} args
  * @param {string} args.main       The path to main .yaml file into which injection should happen
- * @param {string} args.property   A dot-delimited property path on the main file where the partials should be injected
  * @param {string} args.partials   A glob string identifying the partial .yaml files
+ * @param {string} args.property   A dot-delimited property path on the main file where the partials should be injected
  * @param {string} args.output     The path where the combined contents should be output
  * 
- * @return void
+ * @return string|void             If args.output is not passed then the output is returned
  */
 module.exports=function yamlInject(args){
   //Make sure we have all the args
@@ -34,7 +34,7 @@ module.exports=function yamlInject(args){
     for(let p of args.property.split('.')){
       if(p){ //ignore empty props
         if (!propertyPointer.hasOwnProperty(p)) {
-        propertyPointer[p] = {};//If the path doesn't exist we create as we go
+          propertyPointer[p] = {};//If the path doesn't exist we create as we go
         }else if(typeof propertyPointer[p]!='object'||!propertyPointer[p]){
           throw new Error(`The structure of ${args.main} doesn't allow for injecting at '${args.property}'. `+
             `Failed while trying to access '${p}'`);
@@ -45,7 +45,8 @@ module.exports=function yamlInject(args){
   }
 
   // Loop through all YAML files that match the glob pattern...
-  for(let filepath of glob.sync(args.partials)){
+  const partialFiles = glob.sync(args.partials);
+  for(let filepath of partialFiles){
     //...read and parse them into objects...
     const partialObj = yaml.load(fs.readFileSync(filepath, 'utf8'));
     
