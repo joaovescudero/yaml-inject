@@ -19,15 +19,11 @@ Arguments:
   process.exit(0);
 }
 
-function exit(reason,code=1){
-  process.stderr.write(`${reason}\n`);
-  process.exit(code)
-}
-
-}
-
 try{
-	yamlInject(args);
+	const output=yamlInject(args);
+  if(output)
+    process.stdout.write(`${output}\n`)
 }catch(e){
-	exit(e.msg);
+  process.stderr.write(`${e.msg}\n`);
+  process.exit(1);
 }
