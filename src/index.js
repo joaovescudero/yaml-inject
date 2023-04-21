@@ -24,22 +24,25 @@ module.exports=function yamlInject(args){
     if ( ! args[aa] )
       throw new Error(`Missing required argument '${aa}'`);
   }
+
   // Read the contents of the main YAML file and parse it into an object
   const mainObj = yaml.load(fs.readFileSync(args.main, 'utf8'));
 
   // Find the property on the above object which we want to modify
   var propertyPointer = mainObj;
-  for(let p of args.property.split('.')){
-    if(p){ //ignore empty props
-      if (!propertyPointer.hasOwnProperty(p)) {
+  if(args.property){
+    for(let p of args.property.split('.')){
+      if(p){ //ignore empty props
+        if (!propertyPointer.hasOwnProperty(p)) {
         propertyPointer[p] = {};//If the path doesn't exist we create as we go
         }else if(typeof propertyPointer[p]!='object'||!propertyPointer[p]){
           throw new Error(`The structure of ${args.main} doesn't allow for injecting at '${args.property}'. `+
             `Failed while trying to access '${p}'`);
         }
-      propertyPointer = propertyPointer[p];
-    }
-  };
+        propertyPointer = propertyPointer[p];
+      }
+    };
+  }
 
   // Loop through all YAML files that match the glob pattern...
   for(let filepath of glob.sync(args.partials)){
@@ -50,7 +53,13 @@ module.exports=function yamlInject(args){
     Object.assign(propertyPointer, partialObj);
   };
 
-  // Convert the merged object to YAML and write it to the output file
+  // Convert the merged object to YAML 
   const outputYaml = yaml.dump(mainObj);
-  fs.writeFileSync(args.output, outputYaml, 'utf8');
+
+  // Either write to file or reutrn as string
+  if(args.output){
+    fs.writeFileSync(args.output, outputYaml, 'utf8');
+  }else{
+    return outputYaml;
+  }
 }
