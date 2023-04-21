@@ -1,0 +1,28 @@
+{
+  "name": "yaml-inject",
+  "version": "1.0.0",
+  "description": "Inject partial .yml files into a property in a main.yml file",
+  "main": "src/index.js",
+  "bin": ".bin/yaml-inject",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "plundell",
+  "license": "MIT",
+  "keywords": [
+    "yaml",
+    "inject",
+    "merge"
+  ],
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "minimist": "^1.2.8"
+  }
+}

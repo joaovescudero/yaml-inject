@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const yamlInject=require(path.join(__dirname, '..', 'src', 'index.js'));
+const args = require('minimist')(process.argv.slice(2));
+
+// If help flag is present, output help text
+if (args.h || args.help) {
+  console.log(`
+Usage: node mergeYaml.js ARGS
+
+Arguments:
+  -m, --main       Path to the main YAML file
+  -p, --partials   Glob string to match partial YAML files
+  -o, --output     Path to the output YAML file
+  -s, --property   Dot-separated path to the property where the partials will be inserted. Use '.' to signify root
+  -h, --help       Output usage information
+`);
+  process.exit(0);
+}
+
+function exit(reason,code=1){
+  process.stderr.write(`${reason}\n`);
+  process.exit(code)
+}
+
+// Make sure we have all the argsParse the command line args
+for(let [a,aa] of Object.entries({m:'main',p:'partials',o:'output',s:'property'})){
+  args[aa]=args[aa]||args[a];
+  if(!args[aa]){
+    exit(`Missing argument '${aa}'`);
+  }
+  delete args[a];
+}
+
+try{
+	yamlInject(args);
+}catch(e){
+	exit(e.msg);
+}
