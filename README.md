@@ -1,8 +1,8 @@
 # YAML Inject
 
-This is a simple npm module which injects the contents of the partial .yaml files into a specific property of the main .yaml file. See the example below.
+This is a simple npm module which injects the contents of the partial .yaml files into a specific property of the main .yaml file.
 
-## Example
+### Example
 Let's say you have the following files:
 
 *main.yaml*:
@@ -22,12 +22,7 @@ steve:
   name: "Steve"
   age: 15
 ```
-You can merge the partial YAML files into the players property of main.yaml by running the command:
-
-```bash
-npx yaml-inject --main main.yaml --partials 'partials/*.yaml' --output output.yaml --property players
-```
-This will generate the file *output.yaml* with the following contents:
+This module can then generate *output.yaml* with the following contents:
 ```yaml
 title: "Team"
 players:
