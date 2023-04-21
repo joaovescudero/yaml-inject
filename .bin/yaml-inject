@@ -24,13 +24,6 @@ function exit(reason,code=1){
   process.exit(code)
 }
 
-// Make sure we have all the argsParse the command line args
-for(let [a,aa] of Object.entries({m:'main',p:'partials',o:'output',s:'property'})){
-  args[aa]=args[aa]||args[a];
-  if(!args[aa]){
-    exit(`Missing argument '${aa}'`);
-  }
-  delete args[a];
 }
 
 try{

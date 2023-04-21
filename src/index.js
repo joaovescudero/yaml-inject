@@ -15,6 +15,15 @@ const yaml = require('js-yaml');
  * @return void
  */
 module.exports=function yamlInject(args){
+  //Make sure we have all the args
+  for(let [a,aa] of Object.entries( { m: 'main', p: 'partials', o: 'output', s: 'property' } )){
+    args[aa] = args[aa] || args[a];
+    delete args[a];
+  }
+  for(let aa of ['main','partials']){
+    if ( ! args[aa] )
+      throw new Error(`Missing required argument '${aa}'`);
+  }
   // Read the contents of the main YAML file and parse it into an object
   const mainObj = yaml.safeLoad(fs.readFileSync(args.main, 'utf8'));
 
