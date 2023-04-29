@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const yamlInject=require(path.join(__dirname, '..', 'src', 'index.js'));
+const yamlInject = require(path.join(__dirname, '..', 'src', 'index.js'));
 const args = require('minimist')(process.argv.slice(2));
 
-// If help flag is present, output help text
-if (args.h || args.help) {
-  console.log(`
+const help = `
 Usage: ${process.argv[0]} ${path.basename(__filename)} ARGS
 
 Arguments:
@@ -15,15 +13,19 @@ Arguments:
   -o, --output     Path to the output YAML file
   -s, --property   Dot-separated path to the property where the partials will be inserted. Use '.' to signify root
   -h, --help       Output usage information
-`);
-  process.exit(0);
+`;
+
+// If help flag is present, output help text
+if (args.h || args.help) {
+	console.log(help);
+	process.exit(0);
 }
 
-try{
-	const output=yamlInject(args);
-  if(output)
-    process.stdout.write(`${output}\n`)
-}catch(e){
-  process.stderr.write(`${e.msg}\n`);
-  process.exit(1);
+try {
+	const output = yamlInject(args);
+	if (output)
+		process.stdout.write(`${output}\n`);
+} catch (e) {
+	process.stderr.write(`${e.msg}\n`);
+	process.exit(1);
 }
