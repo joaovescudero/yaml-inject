@@ -1,4 +1,4 @@
-{
+	{
 	"name": "yaml-inject",
 	"version": "1.0.1",
 	"description": "Inject partial .yml files into a property in a main.yml file",
@@ -15,7 +15,8 @@
 		"merge"
 	],
 	"dependencies": {
-		"js-yaml": "^4.1.0",
+		"glob": "^11.0.0",
+		"minimist": "^1.2.8",
 		"minimist": "^1.2.8"
 	},
 	"devDependencies": {
